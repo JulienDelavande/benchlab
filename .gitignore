@@ -2,3 +2,4 @@
 *.sqlite
 nsys_results/*
 tmp/*
+__pycache__
