@@ -1,1 +1,4 @@
 *.nsys-rep
+*.sqlite
+nsys_results/*
+tmp/*
