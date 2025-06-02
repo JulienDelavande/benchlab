@@ -1,0 +1,111 @@
+Generating SQLite file nsys_results/linear_10runs_bs65.sqlite from nsys_results/linear_10runs_bs65.nsys-rep
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/nvtx_sum.py]... 
+
+ ** NVTX Range Summary (nvtx_sum):
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)    Med (ns)   Min (ns)  Max (ns)  StdDev (ns)   Style           Range         
+ --------  ---------------  ---------  ----------  ----------  --------  --------  -----------  -------  ----------------------
+     87.5         17594636          1  17594636.0  17594636.0  17594636  17594636          0.0  PushPop  cuBLAS:cublasCreate_v2
+     12.5          2513389          1   2513389.0   2513389.0   2513389   2513389          0.0  PushPop  Linear Batch Size 65  
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/osrt_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain OS Runtime trace data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/cuda_api_sum.py]... 
+
+ ** CUDA API Summary (cuda_api_sum):
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                        Name                      
+ --------  ---------------  ---------  ----------  ----------  --------  --------  -----------  ------------------------------------------------
+     35.2         13123016          1  13123016.0  13123016.0  13123016  13123016          0.0  cudaMemcpyAsync                                 
+     33.5         12498004          4   3124501.0   3855249.0    753008   4034498    1583318.4  cuLibraryLoadData                               
+     14.7          5483652          7    783378.9    194600.0      9531   2933731    1135026.6  cudaMalloc                                      
+      6.6          2443376          2   1221688.0   1221688.0    738408   1704968     683461.1  cudaDeviceSynchronize                           
+      3.9          1442924          1   1442924.0   1442924.0   1442924   1442924          0.0  cudaFree                                        
+      2.3           849732         11     77248.4      6960.0      5251    772560     230622.3  cudaLaunchKernel                                
+      0.8           315816          1    315816.0    315816.0    315816    315816          0.0  cudaStreamCreate                                
+      0.8           310086          1    310086.0    310086.0    310086    310086          0.0  cudaGetDeviceProperties_v2_v12000               
+      0.8           289675         25     11587.0      8020.0      3740     67754      13041.9  cudaLaunchKernelExC_v11060                      
+      0.6           221955        810       274.0       260.0       110       940        129.7  cuGetProcAddress_v2                             
+      0.2            89774          1     89774.0     89774.0     89774     89774          0.0  cudaStreamSynchronize                           
+      0.2            88725         15      5915.0      5501.0      4980     11210       1566.3  cudaMemsetAsync                                 
+      0.1            28121         26      1081.6       595.5       350      6960       1416.6  cudaStreamIsCapturing_v10000                    
+      0.1            26781         20      1339.1       495.0       370      4830       1564.2  cudaEventCreateWithFlags                        
+      0.1            22061         35       630.3       540.0       420      3140        483.9  cudaOccupancyMaxActiveClusters_v11070           
+      0.0            10141          4      2535.3       750.0       610      8031       3664.7  cuLibraryGetKernel                              
+      0.0             9571          2      4785.5      4785.5      4140      5431        912.9  cudaEventRecord                                 
+      0.0             5680          2      2840.0      2840.0       570      5110       3210.3  cudaEventDestroy                                
+      0.0             5590          1      5590.0      5590.0      5590      5590          0.0  cudaStreamDestroy                               
+      0.0             4952          3      1650.7      1351.0       990      2611        851.0  cuInit                                          
+      0.0             4590          2      2295.0      2295.0      2240      2350         77.8  cudaOccupancyAvailableDynamicSMemPerBlock_v10200
+      0.0             1728          3       576.0       250.0       169      1309        636.1  cuModuleGetLoadingMode                          
+      0.0              990          2       495.0       495.0       370       620        176.8  cudaGetDriverEntryPoint_v11030                  
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+
+ ** CUDA GPU Kernel Summary (cuda_gpu_kern_sum):
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  ----------------------------------------------------------------------------------------------------
+     74.0          3482310         15  232154.0  231454.0    229854    241022       2851.7  sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize128x128x8_stage3_warpsize2x2x1_ffma_aligna4_alignc4_e…
+     13.2           622875          5  124575.0  123391.0    123167    128319       2177.6  sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_ex…
+     11.7           551966         11   50178.7    5632.0      5344    105376      51400.3  void at::native::<unnamed>::distribution_elementwise_grid_stride_kernel<float, (int)4, void at::nat…
+      1.0            45664          5    9132.8    9216.0      8704      9536        308.3  sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_ex…
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/cuda_gpu_mem_time_sum.py]... 
+
+ ** CUDA GPU MemOps Summary (by Time) (cuda_gpu_mem_time_sum):
+
+ Time (%)  Total Time (ns)  Count   Avg (ns)    Med (ns)   Min (ns)  Max (ns)  StdDev (ns)      Operation     
+ --------  ---------------  -----  ----------  ----------  --------  --------  -----------  ------------------
+     99.9         13075530      1  13075530.0  13075530.0  13075530  13075530          0.0  [CUDA memcpy HtoD]
+      0.1            14240     15       949.3       832.0       800      1408        224.5  [CUDA memset]     
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/cuda_gpu_mem_size_sum.py]... 
+
+ ** CUDA GPU MemOps Summary (by Size) (cuda_gpu_mem_size_sum):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+    180.355      1   180.355   180.355   180.355   180.355        0.000  [CUDA memcpy HtoD]
+      0.015     15     0.001     0.001     0.001     0.001        0.000  [CUDA memset]     
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/openmp_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain OpenMP event data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/opengl_khr_range_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain KHR Extension (KHR_DEBUG) data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/opengl_khr_gpu_range_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain GPU KHR Extension (KHR_DEBUG) data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/vulkan_marker_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain Vulkan Debug Extension (Vulkan Debug Util) data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/vulkan_gpu_marker_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain GPU Vulkan Debug Extension (GPU Vulkan Debug markers) data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/dx11_pix_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain DX11 CPU debug markers.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/dx12_gpu_marker_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain DX12 GPU debug markers.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/dx12_pix_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain DX12 CPU debug markers.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/wddm_queue_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain WDDM context data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/um_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/um_total_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/um_cpu_page_faults_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [nsys_results/linear_10runs_bs65.sqlite] with [/usr/local/cuda-12.1/nsight-systems-2023.1.2/host-linux-x64/reports/openacc_sum.py]... 
+SKIPPED: nsys_results/linear_10runs_bs65.sqlite does not contain OpenACC event data.
+

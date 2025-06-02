@@ -3,3 +3,7 @@
 nsys_results/*
 tmp/*
 __pycache__
+thank_you/data/*
+thank_you/logs/*
+*.log
+*.csv
