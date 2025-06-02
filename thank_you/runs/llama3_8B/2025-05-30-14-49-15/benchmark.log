@@ -1,0 +1,70 @@
+[MAIN-PROCESS][[36m2025-05-30 14:49:20,290[0m][[34mbackend[0m][[32mINFO[0m] - CUDA_VISIBLE_DEVICES was set to 0.[0m
+[MAIN-PROCESS][[36m2025-05-30 14:49:20,294[0m][[34mprocess[0m][[32mINFO[0m] - Allocated process launcher[0m
+[MAIN-PROCESS][[36m2025-05-30 14:49:20,294[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Setting multiprocessing start method to spawn[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:24,593[0m][[34mdatasets[0m][[32mINFO[0m] - PyTorch version 2.7.0 available.[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:26,641[0m][[34mpytorch[0m][[32mINFO[0m] - Allocating pytorch backend[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:26,641[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Seeding backend with 42[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:26,645[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Benchmarking a Transformers model[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,289[0m][[34menergy-star[0m][[32mINFO[0m] - Allocating energy-star scenario[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,289[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Updating Text Generation kwargs with default values[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,290[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Initializing Text Generation report[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,290[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Initializing Energy tracker[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,290[0m][[34menergy[0m][[32mINFO[0m] - 		+ Tracking RAM and CPU energy consumption[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:27,290[0m][[34menergy[0m][[32mINFO[0m] - 		+ Tracking GPU energy consumption on devices [0][0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:28,648[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running dataset loading tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:30,377[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to load_dataset_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:30,377[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running dataset preprocessing tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:32,277[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to preprocess_dataset_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:32,278[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running model loading energy tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:32,794[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Creating backend temporary directory[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:32,795[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Loading model with pretrained weights[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:32,795[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Loading Transformers model[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:42,890[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Moving Transformers model to device: cuda[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:46,990[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Enabling eval mode[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:46,992[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Cleaning up backend temporary directory[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:47,501[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to load_model_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:47,501[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Preparing sample inputs for warmup[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:47,506[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Warming up backend for Text Generation[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:49:51,853[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running Text Generation tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:56:22,660[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to prefill_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 15:22:36,919[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to generate_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 15:22:36,953[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Sending report dictionary to main process[0m
+[ISOLATED-PROCESS][[36m2025-05-30 15:22:36,954[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Sending report dictionary directly (1329 bytes)[0m
+[ISOLATED-PROCESS][[36m2025-05-30 15:22:36,955[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Exiting isolated process[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,955[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Received report dictionary from isolated process[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,956[0m][[34mreport[0m][[32mINFO[0m] - + load_dataset:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 	+ energy:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ cpu: 0.000013 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ gpu: 0.000041 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ ram: 0.000006 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ total: 0.000060 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - + preprocess_dataset:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 	+ energy:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ cpu: 0.000017 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ gpu: 0.000054 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ ram: 0.000008 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,957[0m][[34mreport[0m][[32mINFO[0m] - 		+ total: 0.000079 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 	+ efficiency:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ efficiency: 12669206.057298 (samples/kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - + load_model:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 	+ energy:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ cpu: 0.000185 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ gpu: 0.000611 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ ram: 0.000082 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ total: 0.000877 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - + prefill:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 	+ energy:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ cpu: 0.004879 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,958[0m][[34mreport[0m][[32mINFO[0m] - 		+ gpu: 0.074682 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ ram: 0.002168 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ total: 0.081729 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 	+ efficiency:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ efficiency: 12235.492042 (samples/kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - + decode:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 	+ energy:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ cpu: 0.015001 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ gpu: 0.119945 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ ram: 0.006575 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ total: 0.141521 (kWh)[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 	+ efficiency:[0m
+[MAIN-PROCESS][[36m2025-05-30 15:22:36,959[0m][[34mreport[0m][[32mINFO[0m] - 		+ efficiency: 7059021.617040 (tokens/kWh)[0m

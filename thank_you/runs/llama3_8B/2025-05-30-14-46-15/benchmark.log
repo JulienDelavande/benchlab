@@ -1,0 +1,20 @@
+[MAIN-PROCESS][[36m2025-05-30 14:46:20,181[0m][[34mbackend[0m][[32mINFO[0m] - CUDA_VISIBLE_DEVICES was set to 0.[0m
+[MAIN-PROCESS][[36m2025-05-30 14:46:20,187[0m][[34mprocess[0m][[32mINFO[0m] - Allocated process launcher[0m
+[MAIN-PROCESS][[36m2025-05-30 14:46:20,187[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Setting multiprocessing start method to spawn[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:24,569[0m][[34mdatasets[0m][[32mINFO[0m] - PyTorch version 2.7.0 available.[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:26,580[0m][[34mpytorch[0m][[32mINFO[0m] - Allocating pytorch backend[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:26,580[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Seeding backend with 42[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:26,584[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Benchmarking a Transformers model[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,190[0m][[34menergy-star[0m][[32mINFO[0m] - Allocating energy-star scenario[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,191[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Updating Text Generation kwargs with default values[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,191[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Initializing Text Generation report[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,191[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Initializing Energy tracker[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,192[0m][[34menergy[0m][[32mINFO[0m] - 		+ Tracking RAM and CPU energy consumption[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:27,192[0m][[34menergy[0m][[32mINFO[0m] - 		+ Tracking GPU energy consumption on devices [0][0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:32,658[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running dataset loading tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:34,802[0m][[34menergy[0m][[32mINFO[0m] - 		+ Saving codecarbon emission data to load_dataset_codecarbon.json[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:34,803[0m][[34menergy-star[0m][[32mINFO[0m] - 	+ Running dataset preprocessing tracking[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:42,249[0m][[34mprocess[0m][[31mERROR[0m] - 	+ Sending traceback string to main process[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:42,264[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Sending traceback string directly (2571 bytes)[0m
+[MAIN-PROCESS][[36m2025-05-30 14:46:42,265[0m][[34mprocess[0m][[31mERROR[0m] - 	+ Received traceback from isolated process[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:46:42,329[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Exiting isolated process[0m

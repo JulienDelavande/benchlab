@@ -1,0 +1,76 @@
+{
+    "load_dataset": {
+        "memory": null,
+        "latency": null,
+        "throughput": null,
+        "energy": {
+            "unit": "kWh",
+            "cpu": 1.2662361259572207e-05,
+            "ram": 5.627383778078689e-06,
+            "gpu": 4.133669972361531e-05,
+            "total": 5.962644476126621e-05
+        },
+        "efficiency": null
+    },
+    "preprocess_dataset": {
+        "memory": null,
+        "latency": null,
+        "throughput": null,
+        "energy": {
+            "unit": "kWh",
+            "cpu": 1.7390270566102117e-05,
+            "ram": 7.728730799216363e-06,
+            "gpu": 5.3812543001185986e-05,
+            "total": 7.893154436650445e-05
+        },
+        "efficiency": {
+            "unit": "samples/kWh",
+            "value": 12669206.057297949
+        }
+    },
+    "load_model": {
+        "memory": null,
+        "latency": null,
+        "throughput": null,
+        "energy": {
+            "unit": "kWh",
+            "cpu": 0.00018491169188513112,
+            "ram": 8.174672504990465e-05,
+            "gpu": 0.0006107713219307698,
+            "total": 0.0008774297388658057
+        },
+        "efficiency": null
+    },
+    "prefill": {
+        "memory": null,
+        "latency": null,
+        "throughput": null,
+        "energy": {
+            "unit": "kWh",
+            "cpu": 0.004878716540231835,
+            "ram": 0.0021683180684792915,
+            "gpu": 0.07468241252354346,
+            "total": 0.08172944713225458
+        },
+        "efficiency": {
+            "unit": "samples/kWh",
+            "value": 12235.492042198697
+        }
+    },
+    "decode": {
+        "memory": null,
+        "latency": null,
+        "throughput": null,
+        "energy": {
+            "unit": "kWh",
+            "cpu": 0.015001111233406925,
+            "ram": 0.0065747308332007376,
+            "gpu": 0.11994518651169983,
+            "total": 0.14152102857830748
+        },
+        "efficiency": {
+            "unit": "tokens/kWh",
+            "value": 7059021.617039943
+        }
+    }
+}

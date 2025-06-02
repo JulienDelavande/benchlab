@@ -1,0 +1,14 @@
+[MAIN-PROCESS][[36m2025-05-30 14:16:32,213[0m][[34mbackend[0m][[32mINFO[0m] - CUDA_VISIBLE_DEVICES was set to 0.[0m
+[MAIN-PROCESS][[36m2025-05-30 14:16:32,217[0m][[34mprocess[0m][[32mINFO[0m] - Allocated process launcher[0m
+[MAIN-PROCESS][[36m2025-05-30 14:16:32,217[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Setting multiprocessing start method to spawn[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:36,460[0m][[34mdatasets[0m][[32mINFO[0m] - PyTorch version 2.7.0 available.[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:38,357[0m][[34mpytorch[0m][[32mINFO[0m] - Allocating pytorch backend[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:38,357[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Seeding backend with 42[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:38,362[0m][[34mpytorch[0m][[32mINFO[0m] - 	+ Benchmarking a Transformers model[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:39,003[0m][[34mhydra.utils[0m][[31mERROR[0m] - Error getting class at optimum_benchmark.scenarios.energy_star.scenario.EnergyStarScenario: Error loading 'optimum_benchmark.scenarios.energy_star.scenario.EnergyStarScenario':
+ModuleNotFoundError("No module named 'optimum_benchmark.preprocessors'")
+Are you sure that 'scenario' is importable from module 'optimum_benchmark.scenarios.energy_star'?[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:39,003[0m][[34mprocess[0m][[31mERROR[0m] - 	+ Sending traceback string to main process[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:39,005[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Traceback string is small enough (2612 bytes), sending it directly[0m
+[MAIN-PROCESS][[36m2025-05-30 14:16:39,006[0m][[34mprocess[0m][[31mERROR[0m] - 	+ Received traceback from isolated process[0m
+[ISOLATED-PROCESS][[36m2025-05-30 14:16:39,020[0m][[34mprocess[0m][[32mINFO[0m] - 	+ Exiting isolated process[0m

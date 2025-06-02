@@ -1,0 +1,106 @@
+name: text_generation
+backend:
+  name: pytorch
+  version: 2.7.0
+  _target_: optimum_benchmark.backends.pytorch.backend.PyTorchBackend
+  model: meta-llama/Llama-3.1-8B-Instruct
+  processor: null
+  task: text-generation
+  library: null
+  model_type: null
+  device: cuda
+  device_ids: '0'
+  seed: 42
+  inter_op_num_threads: null
+  intra_op_num_threads: null
+  model_kwargs: {}
+  processor_kwargs: {}
+  no_weights: false
+  tp_plan: null
+  device_map: null
+  torch_dtype: null
+  eval_mode: true
+  to_bettertransformer: false
+  low_cpu_mem_usage: null
+  attn_implementation: null
+  cache_implementation: null
+  allow_tf32: false
+  autocast_enabled: false
+  autocast_dtype: null
+  torch_compile: false
+  torch_compile_target: forward
+  torch_compile_config: {}
+  quantization_scheme: null
+  quantization_config: {}
+  deepspeed_inference: false
+  deepspeed_inference_config: {}
+  peft_type: null
+  peft_config: {}
+scenario:
+  name: energy_star
+  _target_: optimum_benchmark.scenarios.energy_star.scenario.EnergyStarScenario
+  dataset_name: jdelavande/ultrachat_200k-with-thanks
+  dataset_config: ''
+  dataset_split: train
+  num_samples: -1
+  input_shapes:
+    batch_size: 1
+  text_column_name: messages
+  truncation: false
+  max_length: -1
+  dataset_prefix1: ''
+  dataset_prefix2: ''
+  t5_task: ''
+  image_column_name: image
+  resize: false
+  question_column_name: question
+  context_column_name: context
+  sentence1_column_name: sentence1
+  sentence2_column_name: sentence2
+  audio_column_name: audio
+  energy: true
+  memory: false
+  latency: false
+  warmup_runs: 10
+  forward_kwargs: {}
+  generate_kwargs:
+    max_new_tokens: 1000
+    min_new_tokens: 1
+  call_kwargs: {}
+launcher:
+  name: process
+  _target_: optimum_benchmark.launchers.process.launcher.ProcessLauncher
+  device_isolation: false
+  device_isolation_action: warn
+  numactl: false
+  numactl_kwargs: {}
+  start_method: spawn
+environment:
+  cpu: ' AMD EPYC 7R13 Processor'
+  cpu_count: 96
+  cpu_ram_mb: 2147468.091392
+  system: Linux
+  machine: x86_64
+  platform: Linux-5.15.0-1048-aws-x86_64-with-glibc2.31
+  processor: x86_64
+  python_version: 3.10.16
+  gpu:
+  - NVIDIA H100 80GB HBM3
+  gpu_count: 1
+  gpu_vram_mb: 85520809984
+  optimum_benchmark_version: 0.6.0.dev0
+  optimum_benchmark_commit: 61a08086def388b3e78bbf6b42ed20ab4af3f8db
+  transformers_version: 4.52.3
+  transformers_commit: null
+  accelerate_version: 1.7.0
+  accelerate_commit: null
+  diffusers_version: null
+  diffusers_commit: null
+  optimum_version: null
+  optimum_commit: null
+  timm_version: null
+  timm_commit: null
+  peft_version: null
+  peft_commit: null
+print_report: true
+log_report: true

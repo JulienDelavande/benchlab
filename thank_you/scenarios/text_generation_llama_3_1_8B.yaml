@@ -1,0 +1,33 @@
+defaults:
+  - benchmark
+  - backend: pytorch
+  - launcher: process
+  - scenario: energy_star
+  - _base_
+  - _self_
+
+name: text_generation
+
+launcher:
+  device_isolation: False
+  device_isolation_action: warn
+
+backend:
+  device: cuda
+  device_ids: 0
+  no_weights: false
+  task: text-generation
+  model: meta-llama/Llama-3.1-8B-Instruct
+
+scenario:
+  dataset_name: jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks
+  text_column_name: conversation_with_thanks
+  num_samples: 1000 
+  truncation: False
+
+  input_shapes:
+    batch_size: 1
+
+  generate_kwargs:
+    max_new_tokens: 1000
+    min_new_tokens: 1
