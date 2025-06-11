@@ -44,6 +44,7 @@ def main(args):
     pbar.set_description("Measuring energy consumption")
 
     for item in dataset:
+        inputs = pipe.tokenizer(item[args.column], return_tensors="pt").to(pipe.device)
         pbar.update(1)
         prompt = item[args.column]
 
@@ -55,7 +56,6 @@ def main(args):
             measure_power_secs=1,
         )
 
-        inputs = pipe.tokenizer(prompt, return_tensors="pt").to(pipe.device)
         
         #### PREFILL #####
         tracker.start_task("prefill")
@@ -157,6 +157,7 @@ if __name__ == "__main__":
     parser.add_argument("--out_generated", type=str, default="/fsx/jdelavande/benchlab/thank_you/data/Llama-3.1-8B-Instruct-ultrachat_200k-Llama-3-8B-Instruct-with-thanks-generated.csv")
     parser.add_argument("--start_index", type=int, default=0, help="Start index for dataset selection")
     parser.add_argument("--devices", type=str, default="0", help="Comma-separated list of GPU device IDs to use")
+    parser.add_argument("--batch_size", type=int, default=1, help="Batch size for processing samples")
     
 
     args = parser.parse_args()

@@ -1,9 +1,16 @@
 *.nsys-rep
 *.sqlite
-nsys_results/*
-tmp/*
 __pycache__
-thank_you/data/*
-thank_you/logs/*
 *.log
 *.csv
+
+# microbench study
+microbench/nsys_results/*
+microbench/tmp/*
+
+
+# thank_you study
+thank_you/data/*
+thank_you/logs/*
+thank_you/static/*
+
