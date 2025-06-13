@@ -19,6 +19,7 @@ def main(args):
         model=args.model_name,
         device=0,
         max_new_tokens=args.max_new_tokens,
+        torch_dtype=args.dtype
     )
 
     results = []
@@ -158,6 +159,7 @@ if __name__ == "__main__":
     parser.add_argument("--start_index", type=int, default=0, help="Start index for dataset selection")
     parser.add_argument("--devices", type=str, default="0", help="Comma-separated list of GPU device IDs to use")
     parser.add_argument("--batch_size", type=int, default=1, help="Batch size for processing samples")
+    parser.add_argument("--dtype", type=str, default="float32", help="Data type for the model (e.g., float16, bfloat16, float32)")
     
 
     args = parser.parse_args()
