@@ -1,6 +1,6 @@
 # benchlab
 
-srun --pty --gres=gpu:1 --cpus-per-task=6 --mem=32G bash
+srun --pty --gres=gpu:1 --cpus-per-task=8 --mem=32G bash
 squeue -u $USER -o "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"
 conda activate benchlab
 
