@@ -3,34 +3,30 @@ import torch
 import time
 import pandas as pd
 from codecarbon import EmissionsTracker
-from diffusers import AutoencoderKLWan, WanPipeline
-from diffusers.schedulers.scheduling_unipc_multistep import UniPCMultistepScheduler
+from diffusers import AutoencoderKLWan
+from ContentV.contentv_transformer import SD3Transformer3DModel
+from ContentV.contentv_pipeline import ContentVPipeline
 from diffusers.utils import export_to_video
 
 def main(args):
-    print("Starting WAN2.1 T2V benchmark...")
+    print("Starting ContentV T2V benchmark...")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    dtype = torch.bfloat16 
-    print(f"Using device: {device}, dtype: {dtype}")
+    print(f"Using device: {device}")
 
     vae = AutoencoderKLWan.from_pretrained(args.model_name, subfolder="vae", torch_dtype=torch.float32)
-    scheduler = UniPCMultistepScheduler(prediction_type='flow_prediction', use_flow_sigmas=True, num_train_timesteps=1000, flow_shift=args.flow_shift)
-    pipe = WanPipeline.from_pretrained(args.model_name, vae=vae, torch_dtype=dtype)
-    pipe.scheduler = scheduler
+    transformer = SD3Transformer3DModel.from_pretrained(args.model_name, subfolder="transformer", torch_dtype=torch.bfloat16)
+    pipe = ContentVPipeline.from_pretrained(args.model_name, vae=vae, transformer=transformer, torch_dtype=torch.bfloat16)
     pipe.to(device)
 
     results = []
-    
+
     # Warmup
     print("Warmup run...")
     for _ in range(args.warmup):
         pipe(
             prompt=args.prompt,
             negative_prompt=args.negative_prompt,
-            width=args.width,
-            height=args.height,
-            num_frames=args.num_frames,
-            guidance_scale=args.guidance_scale
+            num_frames=args.num_frames
         )
 
     # Main generation loop
@@ -43,10 +39,8 @@ def main(args):
         output = pipe(
             prompt=args.prompt,
             negative_prompt=args.negative_prompt,
-            width=args.width,
-            height=args.height,
             num_frames=args.num_frames,
-            guidance_scale=args.guidance_scale
+            generator=torch.Generator().manual_seed(args.seed)
         )
     torch.cuda.synchronize()
     end_generate = time.time()
@@ -75,11 +69,7 @@ def main(args):
         "energy_generate_ram": emissions_generate.ram_energy / args.runs,
         "prompt": args.prompt,
         "negative_prompt": args.negative_prompt,
-        "height": args.height,
-        "width": args.width,
         "num_frames": args.num_frames,
-        "steps": args.steps,
-        "guidance_scale": args.guidance_scale,
         "runs": args.runs,
         "out_video": args.out_video,
         "out_csv": args.out_csv,
@@ -90,27 +80,22 @@ def main(args):
 
     df = pd.DataFrame(results)
     df.to_csv(f"{args.output_path}/{args.out_csv}", index=False)
-    print(f"results saved in {args.output_path}/{args.out_csv}")
+    print(f"Results saved in {args.output_path}/{args.out_csv}")
 
 if __name__ == "__main__":
     now = time.strftime("%Y-%m-%d_%H-%M-%S")
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="Wan-AI/Wan2.1-T2V-1.3B-Diffusers") # Wan-AI/Wan2.1-T2V-1.3B-Diffusers # Wan-AI/Wan2.1-T2V-14B-Diffusers
-    parser.add_argument("--prompt", type=str, default="A cat walks on the grass, realistic")
-    parser.add_argument("--negative_prompt", type=str, default="Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three legs, many people in the background, walking backwards")
-    parser.add_argument("--height", type=int, default=480)
-    parser.add_argument("--width", type=int, default=832)
-    parser.add_argument("--num_frames", type=int, default=81)
-    parser.add_argument("--steps", type=int, default=8)
-    parser.add_argument("--guidance_scale", type=float, default=5.0)
+    parser.add_argument("--model_name", type=str, default="ByteDance/ContentV-8B")
+    parser.add_argument("--prompt", type=str, default="A young musician sits on a rustic wooden stool in a cozy, dimly lit room, strumming an acoustic guitar with a worn, sunburst finish.")
+    parser.add_argument("--negative_prompt", type=str, default="overexposed, low quality, deformation, a poor composition, bad hands, bad teeth, bad eyes, bad limbs, distortion")
+    parser.add_argument("--num_frames", type=int, default=125)
     parser.add_argument("--runs", type=int, default=1)
-    parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--out_csv", type=str, default=f"wan2_results_{now}.csv")
-    parser.add_argument("--out_video", type=str, default=f"wan2_video_{now}.mp4")
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--out_csv", type=str, default=f"contentv_results_{now}.csv")
+    parser.add_argument("--out_video", type=str, default=f"contentv_video_{now}.mp4")
     parser.add_argument("--output_path", type=str, default="/fsx/jdelavande/benchlab/videos/data")
     parser.add_argument("--no_save_video", action="store_true", help="Disable saving video")
-    parser.add_argument("--fps", type=int, default=15)
+    parser.add_argument("--fps", type=int, default=24)
     parser.add_argument("--warmup", type=int, default=1)
-    parser.add_argument("--flow_shift", type=int, default=5., help="5.0 for 720P, 3.0 for 480P")
     args = parser.parse_args()
     main(args)

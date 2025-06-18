@@ -50,7 +50,7 @@ def main(args):
             output_type="latent",
         )
 
-    tracker = EmissionsTracker(gpu_ids=[0], log_level="warning", tracking_mode="machine", measure_power_secs=1)
+    tracker = EmissionsTracker(gpu_ids=[0], log_level="warning", tracking_mode="machine", measure_power_secs=1, output_file=f"{args.output_path}/{args.out_csv.replace('.csv', '')}-codecarbon.csv", output_dir=args.output_path)
     torch.cuda.synchronize()
     tracker.start_task("generate")
     start_generate = time.time()
@@ -132,26 +132,27 @@ def main(args):
 
     print("Generation complete!")
     print(f"Generated {num_frames} frames at {expected_height}x{expected_width} resolution.")
-    print(f"Total time for generation: {(end_generate - start_generate) / args.runs:.2f} seconds")
-    print(f"Total time for upscaling: {(end_upsample - start_upsample) / args.runs:.2f} seconds")
-    print(f"Total time for denoising: {(end_denoise - start_denoise) / args.runs:.2f} seconds")
-    print(f"Total GPU energy for generation: {emissions_generate.gpu_energy / args.runs:.2f} Wh")
-    print(f"Total GPU energy for upscaling: {emissions_upsample.gpu_energy / args.runs:.2f} Wh")
-    print(f"Total GPU energy for denoising: {emissions_denoise.gpu_energy / args.runs:.2f} Wh")
-    print(f"Total CPU energy for generation: {emissions_generate.cpu_energy / args.runs:.2f} Wh")
-    print(f"Total CPU energy for upscaling: {emissions_upsample.cpu_energy / args.runs:.2f} Wh")
-    print(f"Total RAM energy for generation: {emissions_generate.ram_energy / args.runs:.2f} Wh")
-    print(f"Total RAM energy for upscaling: {emissions_upsample.ram_energy / args.runs:.2f} Wh")
-    print(f"Total RAM energy for denoising: {emissions_denoise.ram_energy / args.runs:.2f} Wh")
-    print(f"Total GPU memory used: {torch.cuda.max_memory_allocated() / (1024 ** 2):.2f} MB")
-    print(f"Total CPU memory used: {torch.cuda.max_memory_reserved() / (1024 ** 2):.2f} MB")
-    print(f"Total RAM memory used: {torch.cuda.memory_allocated() / (1024 ** 2):.2f} MB")
-    print(f"Total VRAM used: {torch.cuda.memory_reserved() / (1024 ** 2):.2f} MB")
+    print(f"Total time for generation: {(end_generate - start_generate) / args.runs:.6f} seconds")
+    print(f"Total time for upscaling: {(end_upsample - start_upsample) / args.runs:.6f} seconds")
+    print(f"Total time for denoising: {(end_denoise - start_denoise) / args.runs:.6f} seconds")
+    print(f"Total GPU energy for generation: {emissions_generate.gpu_energy / args.runs:.6f} kWh")
+    print(f"Total GPU energy for upscaling: {emissions_upsample.gpu_energy / args.runs:.6f} kWh")
+    print(f"Total GPU energy for denoising: {emissions_denoise.gpu_energy / args.runs:.6f} kWh")
+    print(f"Total CPU energy for generation: {emissions_generate.cpu_energy / args.runs:.6f} kWh")
+    print(f"Total CPU energy for upscaling: {emissions_upsample.cpu_energy / args.runs:.6f} kWh")
+    print(f"Total RAM energy for generation: {emissions_generate.ram_energy / args.runs:.6f} kWh")
+    print(f"Total RAM energy for upscaling: {emissions_upsample.ram_energy / args.runs:.6f} kWh")
+    print(f"Total RAM energy for denoising: {emissions_denoise.ram_energy / args.runs:.6f} kWh")
+    print(f"Total GPU memory allocated: {torch.cuda.max_memory_allocated() / (1024 ** 3):.2f} GB")
+    print(f"Total GPU memory reserved: {torch.cuda.max_memory_reserved() / (1024 ** 3):.2f} GB")
+    print(f"Current GPU memory allocated: {torch.cuda.memory_allocated() / (1024 ** 3):.2f} GB")
+    print(f"Current GPU memory reserved: {torch.cuda.memory_reserved() / (1024 ** 3):.2f} GB")
+
 
     # Resize final
     video = [frame.resize((expected_width, expected_height)) for frame in video]
 
-    if args.save_video:
+    if not args.no_save_video:
         export_to_video(video, f"{args.output_path}/{args.out_video}", fps=args.fps)
         print(f"Video saved to {args.output_path}/{args.out_video}")
 
@@ -191,8 +192,8 @@ def main(args):
     })
 
     df = pd.DataFrame(results)
-    df.to_csv(args.out_csv, index=False)
-    print(f"RResults saved to {args.out_csv}")
+    df.to_csv(f"{args.output_path}/{args.out_csv}", index=False)
+    print(f"Results saved to {args.output_path}/{args.out_csv}")
 
 if __name__ == "__main__":
     now = time.strftime("%Y-%m-%d_%H-%M-%S")
@@ -210,12 +211,12 @@ if __name__ == "__main__":
     parser.add_argument("--denoise_strength", type=float, default=0.4)
     parser.add_argument("--decode_timestep", type=float, default=0.05)
     parser.add_argument("--image_cond_noise_scale", type=float, default=0.025)
-    parser.add_argument("--runs", type=int, default=5)
+    parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--out_csv", type=str, default=f"results_{now}.csv")
-    parser.add_argument("--out_video", type=str, default=f"output_{now}.mp4")
-    parser.add_argument("--output_path", type=str, default="./data")
-    parser.add_argument("--save_video", action="store_true")
+    parser.add_argument("--out_csv", type=str, default=f"results_Lightricks-LTX-Video_{now}.csv")
+    parser.add_argument("--out_video", type=str, default=f"output_Lightricks-LTX-Video_{now}.mp4")
+    parser.add_argument("--output_path", type=str, default="/fsx/jdelavande/benchlab/videos/data")
+    parser.add_argument("--no_save_video", action="store_true", help="Disable saving video")
     parser.add_argument("--fps", type=int, default=24)
     parser.add_argument("--warmup", type=int, default=1, help="Number of warmup runs to skip before measuring performance")
 
