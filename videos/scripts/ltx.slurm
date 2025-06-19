@@ -34,13 +34,13 @@ for prompt in "${PROMPTS[@]}"; do
     echo "======================================="
 
     # Génère des noms uniques
-    MODEL="LTX-Video-0.9.7-dev"
+    MODEL="LTX-Video"
     NOW=$(date +"%Y-%m-%d_%H-%M-%S")
     OUT_CSV="${PREFIX}${MODEL}_results_prompt${i}_${NOW}.csv"
     OUT_VIDEO="${PREFIX}${MODEL}_output_prompt${i}_${NOW}.mp4"
 
     python ltx.py \
-        --model_name "Lightricks/LTX-Video-0.9.7-dev" \
+        --model_name "Lightricks/LTX-Video" \
         --upsample_model_name "Lightricks/ltxv-spatial-upscaler-0.9.7" \
         --prompt "$prompt" \
         --negative_prompt "worst quality, inconsistent motion, blurry, jittery, distorted" \

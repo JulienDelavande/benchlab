@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=vidCogX
+#SBATCH --job-name=vidCogX2B
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
@@ -32,13 +32,13 @@ for prompt in "${PROMPTS[@]}"; do
     echo "Processing prompt #$i: $prompt"
     echo "======================================="
 
-    MODEL="CogVideoX-5b"
+    MODEL="CogVideoX-2b"
     NOW=$(date +"%Y-%m-%d_%H-%M-%S")
     OUT_CSV="${PREFIX}${MODEL}_results_prompt${i}_${NOW}.csv"
     OUT_VIDEO="${PREFIX}${MODEL}_output_prompt${i}_${NOW}.mp4"
 
     python cogX.py \
-        --model_name "THUDM/CogVideoX-5b" \
+        --model_name "THUDM/CogVideoX-2b" \
         --prompt "$prompt" \
         --num_frames 49 \
         --steps 50 \

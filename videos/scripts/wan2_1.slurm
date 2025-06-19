@@ -32,13 +32,13 @@ for prompt in "${PROMPTS[@]}"; do
     echo "Processing prompt #$i: $prompt"
     echo "======================================="
 
-    MODEL="WAN2.1-T2V-1.3B-Diffusers"
+    MODEL="WAN2.1-T2V-14B-Diffusers"
     NOW=$(date +"%Y-%m-%d_%H-%M-%S")
     OUT_CSV="${PREFIX}${MODEL}_results_prompt${i}_${NOW}.csv"
     OUT_VIDEO="${PREFIX}${MODEL}_output_prompt${i}_${NOW}.mp4"
 
     python wan2_1.py \
-        --model_name "Wan-AI/Wan2.1-T2V-1.3B-Diffusers" \
+        --model_name "Wan-AI/Wan2.1-T2V-14B-Diffusers" \
         --prompt "$prompt" \
         --negative_prompt "Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three legs, many people in the background, walking backwards" \
         --height 480 \
