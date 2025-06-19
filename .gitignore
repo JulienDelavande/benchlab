@@ -2,7 +2,6 @@
 *.sqlite
 __pycache__
 *.log
-*.csv
 
 # microbench study
 microbench/nsys_results/*
@@ -13,6 +12,7 @@ microbench/tmp/*
 thank_you/data/*
 thank_you/logs/*
 thank_you/static/*
+thank_you/runs/*
 
 # videos study
 videos/data/*
