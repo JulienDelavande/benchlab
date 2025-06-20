@@ -21,7 +21,19 @@ PROMPTS=(
     "A spaceship approaching a giant alien planet"
     "A mystical forest with glowing mushrooms and fairies"
 )
-PREFIX='exp_'
+PROMPTS=(
+    "A realistic gorilla wearing a yellow Hugging Face t-shirt, filming itself in selfie mode while walking around Paris landmarks like the Eiffel Tower. The gorilla waves at tourists, points at monuments, and playfully scratches its head. Smooth camera motion, lively city background, daylight."
+    "Cinematic ad: a shiny Hugging Face robot helps people, shares smiles, and waves in a bright urban park — uplifting music, smooth camera moves, friendly vibe."
+)
+PROMPTS=(
+    "Close-up of a chameleon's eye, with its scaly skin changing color. Ultra high resolution 4k.")
+
+PROMPTS=(
+    "A realistic gorilla wearing a yellow Hugging Face t-shirt, filming itself in selfie mode while walking around Paris landmarks like the Eiffel Tower. The gorilla waves at tourists, points at monuments, and playfully scratches its head. Smooth camera motion, lively city background, daylight."
+)
+PREFIX='exp4_'
+RUNS=1
+WARMUP=0
 
 # Compteur
 i=1
@@ -40,9 +52,9 @@ for prompt in "${PROMPTS[@]}"; do
     python mochi.py \
         --model_name "genmo/mochi-1-preview" \
         --prompt "$prompt" \
-        --num_frames 84 \
-        --runs 5 \
-        --warmup 2 \
+        --num_frames 500 \
+        --runs "$RUNS" \
+        --warmup "$WARMUP" \
         --fps 30 \
         --out_csv "$OUT_CSV" \
         --out_video "$OUT_VIDEO" \

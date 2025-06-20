@@ -1,3 +1,7 @@
+""""
+Benchmark script for Lightricks LTX-Video model using Diffusers library.
+https://huggingface.co/Lightricks/LTX-Video-0.9.7-dev
+"""
 import argparse
 import torch
 import time
@@ -213,7 +217,7 @@ if __name__ == "__main__":
     parser.add_argument("--image_cond_noise_scale", type=float, default=0.025)
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--out_csv", type=str, default=f"results_Lightricks-LTX-Video_{now}.csv")
+    parser.add_argument("--out_csv", type=str   , default=f"results_Lightricks-LTX-Video_{now}.csv")
     parser.add_argument("--out_video", type=str, default=f"output_Lightricks-LTX-Video_{now}.mp4")
     parser.add_argument("--output_path", type=str, default="/fsx/jdelavande/benchlab/videos/data")
     parser.add_argument("--no_save_video", action="store_true", help="Disable saving video")

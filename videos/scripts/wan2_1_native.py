@@ -3,6 +3,9 @@ from diffusers.utils import export_to_video
 from diffusers import AutoencoderKLWan, WanPipeline
 from diffusers.schedulers.scheduling_unipc_multistep import UniPCMultistepScheduler
 
+OUTPUT_PATH = "/fsx/jdelavande/benchlab/videos/data"
+OUT_VIDEO = "wan2_1_1_3B.mp4"
+
 # Available models: Wan-AI/Wan2.1-T2V-14B-Diffusers, Wan-AI/Wan2.1-T2V-1.3B-Diffusers
 model_id = "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
 vae = AutoencoderKLWan.from_pretrained(model_id, subfolder="vae", torch_dtype=torch.float32)
@@ -23,4 +26,4 @@ output = pipe(
      num_frames=81,
      guidance_scale=5.0,
     ).frames[0]
-export_to_video(output, "/fsx/jdelavande/benchlab/videos/data/output_wan2_1_native.mp4", fps=16)
+export_to_video(output, f"{OUTPUT_PATH}/{OUT_VIDEO}", fps=16)

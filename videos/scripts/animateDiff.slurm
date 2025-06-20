@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=vidAnimateDiff
+#SBATCH --job-name=vidADiff
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
@@ -21,7 +21,15 @@ PROMPTS=(
     "A spaceship approaching a giant alien planet"
     "A mystical forest with glowing mushrooms and fairies"
 )
-PREFIX='exp_'
+PROMPTS=(
+    "A realistic gorilla wearing a yellow Hugging Face t-shirt, filming itself in selfie mode while walking around Paris landmarks like the Eiffel Tower. The gorilla waves at tourists, points at monuments, and playfully scratches its head. Smooth camera motion, lively city background, daylight."
+    "Cinematic ad: a shiny Hugging Face robot helps people, shares smiles, and waves in a bright urban park — uplifting music, smooth camera moves, friendly vibe."
+)
+PROMPTS=(
+    "A girl smiling")
+PREFIX='exp3_'
+RUNS=1
+WARMUP=0
 
 # Compteur
 i=1
@@ -44,8 +52,8 @@ for prompt in "${PROMPTS[@]}"; do
         --prompt "$prompt" \
         --guidance_scale 1.0 \
         --steps 4 \
-        --runs 5 \
-        --warmup 2 \
+        --runs "$RUNS" \
+        --warmup "$WARMUP" \
         --out_csv "$OUT_CSV" \
         --out_gif "$OUT_GIF" \
         --output_path "/fsx/jdelavande/benchlab/videos/data"

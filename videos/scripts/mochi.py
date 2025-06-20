@@ -1,3 +1,7 @@
+"""
+Mochi Benchmark Script
+https://huggingface.co/genmo/mochi-1-preview
+"""
 import argparse
 import torch
 import time

@@ -1,3 +1,9 @@
+"""
+CogVideoX Benchmark Script
+https://huggingface.co/THUDM/CogVideoX-5b
+https://huggingface.co/THUDM/CogVideoX-2b
+"""
+
 import argparse
 import torch
 import time

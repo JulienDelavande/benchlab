@@ -1,3 +1,8 @@
+"""
+AnimateDiff Benchmark Script
+https://huggingface.co/ByteDance/AnimateDiff-Lightning
+"""
+
 import argparse
 import torch
 import time

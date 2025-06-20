@@ -1,3 +1,8 @@
+"""
+Benchmark script for WAN2.1 T2V model using Diffusers library.
+https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers
+https://huggingface.co/Wan-AI/Wan2.1-T2V-14B-Diffusers
+"""
 import argparse
 import torch
 import time
