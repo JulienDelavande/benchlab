@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=vidWAN14
+#SBATCH --job-name=WAN14-720p
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
@@ -30,10 +30,10 @@ PROMPTS=(
 PROMPTS=(
     "A cat and a dog baking a cake together in a kitchen. The cat is carefully measuring flour, while the dog is stirring the batter with a wooden spoon. The kitchen is cozy, with sunlight streaming through the window."
 )
-PREFIX='exp3_'
-RUNS=1
-WARMUP=0
-MODEL="WAN2.1-T2V-14B-Diffusers"  # option : WAN2.1-T2V-1.3B-Diffusers # or WAN2.1-T2V-14B-Diffusers
+PREFIX='exp4_'
+RUNS=2
+WARMUP=1
+MODEL="WAN2.1-T2V-14B-Diffusers_720p"  # option : WAN2.1-T2V-1.3B-Diffusers # or WAN2.1-T2V-14B-Diffusers
 MODEL_NAME="Wan-AI/Wan2.1-T2V-14B-Diffusers" # option : Wan-AI/Wan2.1-T2V-1.3B-Diffusers # or Wan-AI/Wan2.1-T2V-14B-Diffusers
 
 # Compteur
@@ -53,8 +53,8 @@ for prompt in "${PROMPTS[@]}"; do
         --model_name "$MODEL_NAME" \
         --prompt "$prompt" \
         --negative_prompt "Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three legs, many people in the background, walking backwards" \
-        --height 480 \
-        --width 832 \
+        --height 720 \
+        --width 1280 \
         --num_frames 81 \
         --guidance_scale 5.0 \
         --runs "$RUNS" \
