@@ -2,6 +2,7 @@
 *.sqlite
 __pycache__
 *.log
+*/.venv/
 
 # microbench study
 microbench/nsys_results/*
