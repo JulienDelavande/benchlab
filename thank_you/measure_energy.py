@@ -113,6 +113,7 @@ def main(args):
             'dataset': args.dataset_name,
             'split': args.split,
             'column': args.column,
+            'dtype': args.dtype,
             "prompt_tokens": prompt_tokens,
             "response_tokens": response_tokens,
             "duration_prefill": duration_prefill,

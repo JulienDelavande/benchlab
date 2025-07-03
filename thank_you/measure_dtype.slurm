@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=tydtmi7
+#SBATCH --job-name=6bf
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
@@ -31,32 +31,31 @@ datasets=(
 )
 
 dtypes=("float32" "float16" "bfloat16")
+dtype="bfloat16"
 
 export n_samples=-1
 export batch_size=1
-export runs=10
-export warmup=5
+export runs=2
+export warmup=1
 export now=$(date +"%Y-%m-%d-%H-%M-%S")
 export index=6
 export model_name="${models[$index]}"
 export dataset_name="${datasets[$index]}"
 
 # Fichier unique de sortie (résultats + générations)
-export out_csv="/fsx/jdelavande/benchlab/thank_you/data/dtype-${model_name##*/}-${dataset_name##*/}-energy-${now}.csv"
-export out_generated="/fsx/jdelavande/benchlab/thank_you/data/dtype-${model_name##*/}-${dataset_name##*/}-generated-${now}.csv"
+export out_csv="/fsx/jdelavande/benchlab/thank_you/data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-energy-${now}.csv"
+export out_generated="/fsx/jdelavande/benchlab/thank_you/data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-generated-${now}.csv"
 
 
-for dtype in "${dtypes[@]}"; do
-  echo "===== Starting ${model_name} | dtype=${dtype} =====" | tee -a ${log_file}
-  python measure_energy.py \
-    --model_name "${model_name}" \
-    --dataset_name "${dataset_name}" \
-    --n_samples ${n_samples} \
-    --batch_size ${batch_size} \
-    --runs ${runs} \
-    --warmup ${warmup} \
-    --out_csv "${out_csv}" \
-    --out_generated "${out_generated}" \
-    --dtype "${dtype}"
-  echo "===== Finished ${model_name} | dtype=${dtype} =====" | tee -a ${log_file}
-done
+echo "===== Starting ${model_name} | dtype=${dtype} =====" | tee -a ${log_file}
+python measure_energy.py \
+  --model_name "${model_name}" \
+  --dataset_name "${dataset_name}" \
+  --n_samples ${n_samples} \
+  --batch_size ${batch_size} \
+  --runs ${runs} \
+  --warmup ${warmup} \
+  --out_csv "${out_csv}" \
+  --out_generated "${out_generated}" \
+  --dtype ${dtype}
+echo "===== Finished ${model_name} | dtype=${dtype} =====" | tee -a ${log_file}

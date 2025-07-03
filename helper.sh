@@ -4,6 +4,23 @@ srun --pty --gres=gpu:1 --cpus-per-task=8 --mem=32G bash
 squeue -u $USER -o "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"
 conda activate benchlab
 
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_input1_$(date +"%Y-%m-%d-%H-%M-%S")"
+nsys profile \
+  --trace=cuda,nvtx,cublas \
+  --sample=none \
+  -o ${output_dir} \
+  --force-overwrite true \
+  python nsysdecode.py
+
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_generate_input1000_$(date +"%Y-%m-%d-%H-%M-%S")"
+nsys profile \
+  --trace=cuda,nvtx,cublas \
+  --sample=none \
+  -o ${output_dir} \
+  --force-overwrite true \
+  python model_generate_trace.py
+
+
 ncu --nvtx --set full --target-processes all \
     --nvtx-include "prefill,decode" \
     -o profile_generate \
@@ -12,7 +29,7 @@ ncu --set full python -c "import torch; a = torch.randn(10000, 10000, device='cu
 
 
 nsys profile -t cuda,nvtx,cublas --sample=none \
-    -o decode_bs63 \
+    -o test123 \
     python nsysdecode.py
 
 nsys profile -t cuda,nvtx,cublas --sample=none \
