@@ -12,13 +12,29 @@ nsys profile \
   --force-overwrite true \
   python nsysdecode.py
 
-export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_generate_input1000_$(date +"%Y-%m-%d-%H-%M-%S")"
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_kernel_input1000_$(date +"%Y-%m-%d-%H-%M-%S")"
 nsys profile \
   --trace=cuda,nvtx,cublas \
   --sample=none \
   -o ${output_dir} \
   --force-overwrite true \
   python model_generate_trace.py
+
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/rmsnorm_kernel_$(date +"%Y-%m-%d-%H-%M-%S")"
+nsys profile \
+  --trace=cuda,nvtx,cublas \
+  --sample=none \
+  -o ${output_dir} \
+  --force-overwrite true \
+  python kernels_cuda.py
+
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_power$(date +"%Y-%m-%d-%H-%M-%S")"
+nsys profile \
+  --trace=cuda,nvtx,cublas \
+  --sample=none \
+  -o ${output_dir} \
+  --force-overwrite true \
+  python model_gen_power_trace.py
 
 
 ncu --nvtx --set full --target-processes all \
