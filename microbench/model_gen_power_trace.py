@@ -7,8 +7,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_id = "meta-llama/Llama-3.1-8B-Instruct"
 batch_size = 1
-input_length = 1_000
-generate_length = 1000
+input_length = 193
+generate_length = 1
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
@@ -16,6 +16,7 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype=torch.float32
 )
 model.eval()
+model.compile()
 
 # Random input generation
 input_ids = torch.randint(
@@ -49,24 +50,24 @@ def run_generate(inputs=input_ids, generate_length=generate_length):
     nvtx.range_pop()
 
 
-# 🚀 Lance le logger dans un thread
-nvtx.mark("logging_started")
-t = threading.Thread(target=log_power, kwargs={'sampling_interval_us': 100})  # 100 µs interval
-t.start()
 
 # 🔁 Appel au modèle
 for _ in range(2):  # Warmup
     run_generate(generate_length=3)
 
+# 🚀 Lance le logger dans un thread
+nvtx.mark("logging_started")
+t = threading.Thread(target=log_power, kwargs={'sampling_interval_us': 100})  # 100 µs interval
+t.start()
+
 torch.cuda.synchronize()
 start_gen = torch.cuda.Event(enable_timing=True)
 end_gen = torch.cuda.Event(enable_timing=True)
 start_gen.record()
-for _ in range(1):  # Warmup
+for _ in range(200):
     run_generate()
-
-torch.cuda.synchronize()
 end_gen.record()
+torch.cuda.synchronize()
 
 # ⏹️ Stop logging
 logging_enabled = False

@@ -4,8 +4,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_id = "meta-llama/Llama-3.1-8B-Instruct"
 batch_size = 1
-input_length = 1_000
-generate_length = 4
+input_length = 128
+generate_length = 500
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
@@ -13,6 +13,7 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype=torch.float32
 )
 model.eval()
+model.compile()
 
 # Random input generation
 input_ids = torch.randint(
@@ -45,8 +46,8 @@ input_ids = torch.randint(
 # end_prefill = torch.cuda.Event(enable_timing=True)
 # start_prefill.record()
 # _ = run_prefill()
-# torch.cuda.synchronize()
 # end_prefill.record()
+# torch.cuda.synchronize()
 # elapsed_time_ms_prefill = start_prefill.elapsed_time(end_prefill)
 # print(f"\n⏱️ Time taken for prefill (forward): {elapsed_time_ms_prefill:.3f} ms")
 
@@ -73,7 +74,7 @@ start_gen = torch.cuda.Event(enable_timing=True)
 end_gen = torch.cuda.Event(enable_timing=True)
 start_gen.record()
 run_generate()
-torch.cuda.synchronize()
 end_gen.record()
+torch.cuda.synchronize()
 elapsed_time_ms_gen = start_gen.elapsed_time(end_gen)
 print(f"\n🚀 Time taken with generate(): {elapsed_time_ms_gen:.3f} ms")
