@@ -7,6 +7,8 @@ __pycache__
 # microbench study
 microbench/nsys_results/*
 microbench/tmp/*
+microbench/power_data/*
+microbench/power_data2/*
 
 
 # thank_you study

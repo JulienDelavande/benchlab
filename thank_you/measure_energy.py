@@ -13,7 +13,7 @@ def main(args):
 
     dataset = load_dataset(args.dataset_name, split=args.split).select(range(args.start_index, args.n_samples)) if args.n_samples > 0 \
         else load_dataset(args.dataset_name, split=args.split).select(range(args.start_index, len(load_dataset(args.dataset_name, split=args.split))))
-
+ 
     pipe = pipeline(
         "text-generation",
         model=args.model_name,
@@ -32,7 +32,7 @@ def main(args):
         item = dataset[0]
         prompt = item[args.column]
         inputs = pipe.tokenizer(prompt, return_tensors="pt").to(pipe.device)
-        with torch.no_grad():
+        with torch.no_grad(   ):
             pipe.model.generate(
                 **inputs,
                 max_new_tokens=1,

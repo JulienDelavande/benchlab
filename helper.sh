@@ -12,7 +12,7 @@ nsys profile \
   --force-overwrite true \
   python nsysdecode.py
 
-export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_kernel_input1000_$(date +"%Y-%m-%d-%H-%M-%S")"
+export output_dir="/fsx/jdelavande/benchlab/microbench/nsys_results/llama8B_compile_input1000_$(date +"%Y-%m-%d-%H-%M-%S")"
 nsys profile \
   --trace=cuda,nvtx,cublas \
   --sample=none \
