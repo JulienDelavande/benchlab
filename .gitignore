@@ -5,10 +5,7 @@ __pycache__
 */.venv/
 
 # microbench study
-microbench/nsys_results/*
-microbench/tmp/*
-microbench/power_data/*
-microbench/power_data2/*
+microbench/data/*
 
 
 # thank_you study
