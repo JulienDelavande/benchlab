@@ -19,9 +19,11 @@ def parse_args():
     parser.add_argument("--log_power", action="store_true")
     parser.add_argument("--log_energy", action="store_true")
     parser.add_argument("--output_dir", type=str, default="./")
+    parser.add_argument("--warmup_runs", type=int, default=5)
+    parser.add_argument("--prefix", type=str, default="exp0")
     return parser.parse_args()
 
-def log_power(samples, stop_flag, interval_us=100):
+def log_power_fn(samples, stop_flag, interval_us=100):
     pynvml.nvmlInit()
     handle = pynvml.nvmlDeviceGetHandleByIndex(0)
     start = time.perf_counter_ns()
@@ -38,13 +40,13 @@ def benchmark_linear(batch_size, hidden_dim, ffn_dim, seq_len, runs, log_power=F
     linear = torch.nn.Linear(hidden_dim, ffn_dim, bias=False).to(device)
 
     # Warmup
-    for _ in range(5):
+    for _ in range(args.warmup_runs):
         _ = linear(x)
 
     # Power logging
     samples, stop_flag, power_thread = [], threading.Event(), None
     if log_power:
-        power_thread = threading.Thread(target=log_power, args=(samples, stop_flag))
+        power_thread = threading.Thread(target=log_power_fn, args=(samples, stop_flag))
         power_thread.start()
 
     # Energy tracking
@@ -74,6 +76,9 @@ def benchmark_linear(batch_size, hidden_dim, ffn_dim, seq_len, runs, log_power=F
     latency_ms = start_event.elapsed_time(end_event) / runs
 
     result = {
+        "model_id": "linear",
+        "runs": runs,
+        "warmup_runs": args.warmup_runs,
         "batch_size": batch_size,
         "hidden_dim": hidden_dim,
         "ffn_dim": ffn_dim,
@@ -91,7 +96,7 @@ def benchmark_linear(batch_size, hidden_dim, ffn_dim, seq_len, runs, log_power=F
     if log_power:
         df_power = pd.DataFrame(samples, columns=["time_ns", "power_w"])
         df_power["time_ms"] = df_power["time_ns"] / 1_000_000
-        filename = f"power_linear_b{batch_size}_h{hidden_dim}_d{ffn_dim}_s{seq_len}.csv"
+        filename = f"{args.prefix}_power_linear_b{batch_size}_h{hidden_dim}_d{ffn_dim}_s{seq_len}.csv"
         df_power.to_csv(f"{args.output_dir}/{filename}", index=False)
         print(f"✅ Power trace saved to {filename}")
 
@@ -115,20 +120,24 @@ def main():
             for d in args.ffn_dims:
                 for s in args.seq_lens:
                     print(f"▶ Benchmarking: B={b}, H={h}, D={d}, S={s}")
-                    result = benchmark_linear(
-                        batch_size=b,
-                        hidden_dim=h,
-                        ffn_dim=d,
-                        seq_len=s,
-                        runs=args.runs,
-                        log_power=args.log_power,
-                        tracker=tracker
-                    )
-                    all_results.append(result)
+                    try:
+                        result = benchmark_linear(
+                            batch_size=b,
+                            hidden_dim=h,
+                            ffn_dim=d,
+                            seq_len=s,
+                            runs=args.runs,
+                            log_power=args.log_power,
+                            tracker=tracker
+                        )
+                        all_results.append(result)
+                    except Exception as e:
+                        print(f"❌ Error: {e}")
+                        continue
 
     df = pd.DataFrame(all_results)
     timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
-    out_csv = f"{args.output_dir}/linear_benchmark_{timestamp}.csv"
+    out_csv = f"{args.output_dir}/{args.prefix}_linear_benchmark_{timestamp}.csv"
     df.to_csv(out_csv, index=False)
     print(f"✅ Results saved to {out_csv}")
 
