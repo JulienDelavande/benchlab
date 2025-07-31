@@ -13,6 +13,7 @@ thank_you/data/*
 thank_you/logs/*
 thank_you/static/*
 thank_you/runs/*
+data/
 
 # videos study
 videos/data/*
