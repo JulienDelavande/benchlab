@@ -4,8 +4,6 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
 #SBATCH --mail-type=ALL
-#SBATCH --output=/fsx/jdelavande/logs/slurm-%j-%x.out
-#SBATCH --mail-user=julien.delavande@huggingface.co
 #SBATCH --qos normal
 #SBATCH --time=08:00:00
 
@@ -28,7 +26,7 @@ export gpu_ids='0'
 safe_min=${BREAK_MIN/./_}
 safe_max=${BREAK_MAX/./_}
 
-export OUT_CSV="/fsx/jdelavande/benchlab/thank_you/data/tgi-${DATASET_NAME##*/}-${safe_min}-${safe_max}-${now}.csv"
+export OUT_CSV="../data/tgi-${DATASET_NAME##*/}-${safe_min}-${safe_max}-${now}.csv"
 export CUDA_VISIBLE_DEVICES=$gpu_ids
 export num_shard=$(echo $gpu_ids | tr ',' '\n' | wc -l)
 
@@ -39,4 +37,4 @@ srun --container-image='ghcr.io#huggingface/text-generation-inference'   \
      --no-container-mount-home \
      --qos normal \
      --gpus-per-node=$num_shard \
-     /fsx/jdelavande/benchlab/thank_you/launch_tgi_and_run.sh
+     ./launch_tgi_and_run.sh

@@ -4,8 +4,6 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=32G
 #SBATCH --mail-type=ALL
-#SBATCH --output=/fsx/jdelavande/logs/slurm-%j-%x.out
-#SBATCH --mail-user=julien.delavande@huggingface.co
 #SBATCH --qos normal
 
 source ~/.bashrc
@@ -43,8 +41,8 @@ export model_name="${models[$index]}"
 export dataset_name="${datasets[$index]}"
 
 # Fichier unique de sortie (résultats + générations)
-export out_csv="/fsx/jdelavande/benchlab/thank_you/data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-energy-${now}.csv"
-export out_generated="/fsx/jdelavande/benchlab/thank_you/data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-generated-${now}.csv"
+export out_csv="../data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-energy-${now}.csv"
+export out_generated="../data/${model_name##*/}-${dataset_name##*/}-dtype3-${dtype}-generated-${now}.csv"
 
 
 echo "===== Starting ${model_name} | dtype=${dtype} =====" | tee -a ${log_file}

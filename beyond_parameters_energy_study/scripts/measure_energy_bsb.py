@@ -7,6 +7,10 @@ import torch
 import time
 from tqdm import tqdm
 import os
+from pathlib import Path
+from typing import Callable, Any
+
+DEVICE = 'cuda'
 
 def main(args: argparse.Namespace) -> None:
     """
@@ -16,8 +20,8 @@ def main(args: argparse.Namespace) -> None:
         args (argparse.Namespace): Parsed command line arguments.
     """
 
-    os.environ["CUDA_VISIBLE_DEVICES"] = args.devices
-    gpu_ids = [int(gpu_id) for gpu_id in args.devices.split(",")]
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_ids
+    gpu_ids = [int(gpu_id) for gpu_id in args.gpu_ids.split(",")]
 
     dataset = load_dataset(args.dataset_name, split=args.split)
     if args.n_samples > 0:
@@ -30,14 +34,12 @@ def main(args: argparse.Namespace) -> None:
 
     if args.quantization == "8bit":
         quantization_config = BitsAndBytesConfig(load_in_8bit=True)
-        dtype = None
     elif args.quantization == "4bit":
         quantization_config = BitsAndBytesConfig(load_in_4bit=True)
-        dtype = None
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name,
-        device_map="auto",
+        device_map=DEVICE,
         quantization_config=quantization_config,
         torch_dtype=dtype,
     )
@@ -51,9 +53,10 @@ def main(args: argparse.Namespace) -> None:
     )
 
     results = []
-
-    os.makedirs(os.path.dirname(args.out_csv), exist_ok=True)
-    os.makedirs(os.path.dirname(args.out_generated), exist_ok=True)
+    out_csv_path = Path(args.out_csv)
+    out_generated_path = Path(args.out_generated)
+    os.makedirs(out_csv_path.parent, exist_ok=True)
+    os.makedirs(out_generated_path.parent, exist_ok=True)
 
     pbar = tqdm(total=len(dataset), desc="Processing dataset")
     pbar.set_postfix({"model": args.model_name, "quant": args.quantization})
@@ -62,7 +65,7 @@ def main(args: argparse.Namespace) -> None:
     for _ in range(args.warmup):
         item = dataset[0]
         prompt = item[args.column]
-        inputs = tokenizer(prompt, return_tensors="pt").to(pipe.device)
+        inputs = tokenizer(prompt, return_tensors="pt").to(DEVICE)
         with torch.no_grad():
             pipe.model.generate(
                 **inputs,
@@ -72,58 +75,41 @@ def main(args: argparse.Namespace) -> None:
             )
     pbar.update(args.warmup)
 
+    tracker = EmissionsTracker(
+        log_level="warning",
+        tracking_mode="machine",
+        gpu_ids=gpu_ids,
+        allow_multiple_runs=True,
+        measure_power_secs=1,
+    )
+
     for item in dataset:
         prompt = item[args.column]
-        inputs = tokenizer(prompt, return_tensors="pt").to(pipe.device)
+        inputs = tokenizer(prompt, return_tensors="pt").to(DEVICE)
 
         ### PREFILL ###
-        tracker = EmissionsTracker(
-            log_level="warning",
-            tracking_mode="machine",
-            gpu_ids=gpu_ids,
-            allow_multiple_runs=True,
-            measure_power_secs=1,
+        duration_prefill, emissions_prefill, _ = measure_energy(
+            tracker, 
+            "prefill",
+            lambda: pipe.model.generate(**inputs, max_new_tokens=1, do_sample=False, return_dict_in_generate=True), 
+            args.runs
         )
-
-        tracker.start_task("prefill")
-        start = time.time()
-        with torch.no_grad():
-            for _ in range(args.runs):
-                pipe.model.generate(
-                    **inputs,
-                    max_new_tokens=1,
-                    do_sample=False,
-                    return_dict_in_generate=True,
-                )
-        torch.cuda.synchronize()
-        end = time.time()
-        emissions_prefill = tracker.stop_task()
-
-        duration_prefill = (end - start) / args.runs
         energy_prefill_cpu = emissions_prefill.cpu_energy / args.runs
         energy_prefill_gpu = emissions_prefill.gpu_energy / args.runs
         energy_prefill_ram = emissions_prefill.ram_energy / args.runs
 
         ### GENERATE ###
-        tracker.start_task("generate")
-        start = time.time()
-        with torch.no_grad():
-            for _ in range(args.runs):
-                generated_ = pipe.model.generate(
-                    **inputs,
-                    max_new_tokens=args.max_new_tokens,
-                    do_sample=False,
-                    return_dict_in_generate=True,
-                )
-        torch.cuda.synchronize()
-        end = time.time()
-        emissions_generate = tracker.stop_task()
-
-        duration_generate = (end - start) / args.runs
+        duration_generate, emissions_generate, generated_ = measure_energy(
+            tracker, 
+            "generate",
+            lambda: pipe.model.generate(**inputs, max_new_tokens=args.max_new_tokens, do_sample=False, return_dict_in_generate=True), 
+            args.runs
+        )
         energy_generate_cpu = emissions_generate.cpu_energy / args.runs
         energy_generate_gpu = emissions_generate.gpu_energy / args.runs
         energy_generate_ram = emissions_generate.ram_energy / args.runs
 
+        ### DECODE ###
         duration_decode = duration_generate - duration_prefill
         energy_decode_cpu = energy_generate_cpu - energy_prefill_cpu
         energy_decode_gpu = energy_generate_gpu - energy_prefill_gpu
@@ -158,16 +144,38 @@ def main(args: argparse.Namespace) -> None:
 
         df = pd.DataFrame(results)
         df.index = range(args.start_index, args.start_index + len(df))
-        df.to_csv(args.out_csv, index=True)
+        df.to_csv(out_csv_path, index=True)
 
         pd.DataFrame({
             'prompt': [prompt],
             'generated': [generated_text]
-        }).to_csv(args.out_generated, mode='a', header=not os.path.exists(args.out_generated), index=True)
+        }).to_csv(out_generated_path, mode='a', header=not os.path.exists(out_generated_path), index=True)
 
         pbar.update(1)
 
     pbar.close()
+
+def measure_energy(tracker: EmissionsTracker, task_name: str, fn: Callable[[], Any], runs: int = 10) -> tuple[float, EmissionsTracker, Any]:
+    """ 
+    Measure the energy consumption of a function.
+    Args:
+        tracker (EmissionsTracker): The emissions tracker.
+        task_name (str): Name of the task for tracking.
+        fn (Callable): The function to measure.
+        runs (int): Number of runs to average the measurement.
+    Returns:
+        tuple: A tuple containing the average duration, emissions tracker, and the result of the function.
+    """
+    tracker.start_task(task_name)
+    start = time.time()
+    with torch.no_grad():
+        for _ in range(runs):
+            generated = fn()
+    torch.cuda.synchronize()
+    end = time.time()
+    emissions = tracker.stop_task()
+    torch.cuda.empty_cache()
+    return (end - start) / runs, emissions, generated
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -184,7 +192,7 @@ if __name__ == "__main__":
     parser.add_argument("--out_generated", type=str, default="../data/Llama-3.1-8B-Instruct-ultrachat_200k-Llama-3-8B-Instruct-with-thanks-generated-{}.csv".format(now), help="Output CSV file to save generated texts")
     parser.add_argument("--start_index", type=int, default=0, help="Start index for dataset selection")
     parser.add_argument("--quantization", type=str, choices=["none", "8bit", "4bit"], default="8bit", help="Quantization method to use")
-    parser.add_argument("--devices", type=str, default="0", help="Comma-separated list of GPU device IDs to use")
+    parser.add_argument("--gpu_ids", type=str, default="0", help="Comma-separated list of GPU device IDs to use")
     parser.add_argument("--dtype", type=str, default="float32", help="Data type for the model (e.g., float16, bfloat16, float32)")
     args = parser.parse_args()
     main(args)

@@ -1,4 +1,3 @@
-
 # Study of the Energy Cost of Politeness in LLMs
 
 This repository accompanies the article on the energy impact of politeness (e.g., "thank you") during inference with large language models (LLMs). It contains code to generate datasets with and without polite messages, and to measure energy consumption during GPU inference.
@@ -69,6 +68,7 @@ python measure_energy.py \
 ```bash
 cd scripts/
 sbatch measure.slurm
+```
 
 - Adapt paths and parameters to your GPU setup and needs.
 

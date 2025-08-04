@@ -5,8 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "accelerate>=1.9.0",
+    "codecarbon>=3.0.4",
+    "datasets>=4.0.0",
     "matplotlib>=3.10.3",
     "notebook>=7.4.3",
     "pandas>=2.3.0",
     "scikit-learn>=1.7.0",
+    "torch>=2.7.1",
+    "tqdm>=4.67.1",
+    "transformers>=4.54.1",
 ]
