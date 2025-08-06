@@ -35,12 +35,13 @@ def main(args):
             width=args.width,
             height=args.height,
             num_frames=args.num_frames,
-            guidance_scale=args.guidance_scale
+            guidance_scale=args.guidance_scale,
+            num_inference_steps=args.steps
         )
 
     # Main generation loop
     print("Starting main runs...")
-    tracker = EmissionsTracker(gpu_ids=[0], log_level="warning", tracking_mode="machine", measure_power_secs=1, output_file=f"{args.output_path}/{args.out_csv.replace('.csv', '')}-codecarbon.csv", output_dir=args.output_path)
+    tracker = EmissionsTracker(gpu_ids=[0], log_level="warning", tracking_mode="machine", measure_power_secs=1, output_file=f"{args.out_csv.replace('.csv', '')}-codecarbon.csv", output_dir=args.output_path)
     torch.cuda.synchronize()
     tracker.start_task("generate")
     start_generate = time.time()
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     parser.add_argument("--height", type=int, default=480)
     parser.add_argument("--width", type=int, default=832)
     parser.add_argument("--num_frames", type=int, default=81)
-    parser.add_argument("--steps", type=int, default=8)
+    parser.add_argument("--steps", type=int, default=50)
     parser.add_argument("--guidance_scale", type=float, default=5.0)
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=0)
