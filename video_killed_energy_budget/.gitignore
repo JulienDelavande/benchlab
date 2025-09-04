@@ -1,0 +1,12 @@
+# videos study
+data/*
+scripts/ContentV/*
+results/
+*.nsys-rep
+*.sqlite
+__pycache__
+*.log
+.venv/
+.git/
+slurm-*.out
+.env
