@@ -3,6 +3,8 @@
 __pycache__
 *.log
 */.venv/
+.git/
+.env
 
 # microbench study
 microbench/data/*
@@ -16,5 +18,5 @@ thank_you/runs/*
 data/
 
 # videos study
-videos/data/*
-videos/scripts/ContentV/*
+video_killed_energy_budget/data/*
+video_killed_energy_budget/scripts/ContentV/*
