@@ -122,3 +122,21 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
     
+
+#     uv run nsys profile \
+#   --trace=cuda,nvtx,cublas \
+#   --sample=none \
+#   -o ${output_dir} \
+#   --force-overwrite true \
+#     python scripts/wan2_1.py \
+#     --model_name Wan-AI/Wan2.1-T2V-1.3B-Diffusers \
+#     --prompt "A cat walks on the grass, realistic" \
+#     --height 100 \
+#     --width 100 \
+#     --num_frames 10 \
+#     --steps 10 \
+#     --runs 1 \
+#     --out_csv wan2_results_fa.csv \
+#     --out_video wan2_video_fa.mp4 \
+#     --warmup 0 \
+#     --output_path ./../data

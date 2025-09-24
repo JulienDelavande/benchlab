@@ -9,7 +9,7 @@
 source ~/.bashrc
 
 export model_name=meta-llama/Llama-3.1-8B-Instruct
-export dataset_name=jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks
+export dataset_name=Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks
 export n_samples=-1
 export batch_size=2
 export runs=10

@@ -46,7 +46,7 @@ Run the batch experiment script:
 ```bash
 python measure_energy_batch.py \
     --model_name meta-llama/Llama-3.1-8B-Instruct \
-    --dataset_name jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks \
+    --dataset_name Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks \
     --split train \
     --column conversation_with_thanks \
     --n_samples -1 \
@@ -67,7 +67,7 @@ Run the precision measurement script:
 ```bash
 python measure_precision.py \
     --model_name meta-llama/Llama-3.1-8B-Instruct
-    --dataset_name jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks \
+    --dataset_name Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks \
     --split train \
     --column conversation_with_thanks \
     --n_samples -1 \
@@ -101,7 +101,7 @@ docker exec -it tgi bash
 ```bash
 export PORT=8080
 export MODEL="meta-llama/Llama-3.1-8B-Instruct"
-export DATASET_NAME="jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
+export DATASET_NAME="Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
 export SPLIT="train"
 export COLUMN="conversation_with_thanks"
 export N_SAMPLES=-1

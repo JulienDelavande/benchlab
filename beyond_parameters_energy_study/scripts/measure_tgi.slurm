@@ -11,7 +11,7 @@
 # --- ENV vars ---
 export PORT=8080
 export MODEL="meta-llama/Llama-3.1-8B-Instruct"
-export DATASET_NAME="jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
+export DATASET_NAME="Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
 export SPLIT="train"
 export COLUMN="conversation_with_thanks"
 export N_SAMPLES=-1

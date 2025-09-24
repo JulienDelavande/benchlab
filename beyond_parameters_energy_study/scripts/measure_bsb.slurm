@@ -19,15 +19,14 @@ models=(
 )
 
 datasets=(
-  "jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
-  "jdelavande/ultrachat_200k-Mistral-7B-Instruct-v0.3-with-thanks"
+  "Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Qwen2.5-7B-Instruct-with-thanks"
+  "Anonyme162325/ultrachat_200k-Mistral-7B-Instruct-v0.3-with-thanks"
 )
-
 
 export index=6
 export model_name="${models[$index]}"

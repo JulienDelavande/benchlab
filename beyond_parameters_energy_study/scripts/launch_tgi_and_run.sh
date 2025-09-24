@@ -18,7 +18,7 @@ python -m ensurepip --upgrade
 python -m pip install --no-cache-dir httpx transformers datasets codecarbon pandas torch tqdm
 
 # Lancer le script Python
-python /fsx/jdelavande/benchlab/thank_you/measure_energy_tgi.py \
+python ./measure_energy_tgi.py \
   --dataset_name "$DATASET_NAME" \
   --split "$SPLIT" \
   --column "$COLUMN" \

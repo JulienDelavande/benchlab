@@ -153,7 +153,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--inference_url", type=str, default="http://localhost:8080/generate", 
                         help="URL for the inference server")
-    parser.add_argument("--dataset_name", type=str, default="jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks",
+    parser.add_argument("--dataset_name", type=str, default="Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks",
                         help="Name of the dataset to use on Hugging Face Hub")
     parser.add_argument("--split", type=str, default="train",
                         help="Dataset split to use (e.g., 'train', 'test')")

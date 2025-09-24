@@ -89,7 +89,7 @@ if __name__ == "__main__":
     parser.add_argument("--dataset_name", type=str, default="ultrachat_200k", help="Name of the dataset to create.")
     parser.add_argument("--split", type=str, default="train_sft[:10000]", help="Dataset split to use (e.g., 'train', 'test').")
     parser.add_argument("--model_name", type=str, default="gemma-2-2b-it", help="Model name to use for formatting.")
-    parser.add_argument("--end_repo", type=str, default="jdelavande", help="Repository name to push the dataset to."), 
+    parser.add_argument("--end_repo", type=str, default="Anonyme162325", help="Repository name to push the dataset to."), 
     parser.add_argument("--template", type=str, default="gemma", choices=list(chat_templates.keys()), help="Template to use for formatting conversations.")
     args = parser.parse_args()
 

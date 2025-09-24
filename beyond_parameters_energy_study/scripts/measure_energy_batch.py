@@ -168,7 +168,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     now = time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime())
     parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.1-8B-Instruct", help="Name of the model to use on Hugging Face Hub")
-    parser.add_argument("--dataset_name", type=str, default="jdelavande/ultrachat_200k-Llama-3-8B-Instruct-with-thanks", help="Name of the dataset to use on Hugging Face Hub")
+    parser.add_argument("--dataset_name", type=str, default="Anonyme162325/ultrachat_200k-Llama-3-8B-Instruct-with-thanks", help="Name of the dataset to use on Hugging Face Hub")
     parser.add_argument("--split", type=str, default="train", help="Dataset split to use (e.g., 'train', 'test')")
     parser.add_argument("--column", type=str, default="conversation_with_thanks", help="Column in the dataset to use for prompts")
     parser.add_argument("--n_samples", type=int, default=-1, help="Number of samples to process (-1 for all)")
